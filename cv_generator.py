@@ -8,7 +8,7 @@ import agentops
 import streamlit as st
 
 # Load environment variables
-env_path = os.path.join(os.path.dirname(__file__)+'printed-cv', 'config', 'key.env')
+env_path = os.path.join(os.path.dirname(__file__), 'config', 'key.env')
 load_dotenv(dotenv_path=env_path)
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
@@ -65,7 +65,7 @@ def create_tasks(user_data, job_description, researcher, formatter, reviewer, su
         Create comprehensive CV sections with proper categorization""",
         agent=researcher,
         expected_output="Structured JSON with categorized professional information",
-        output_file='structured_data.json'
+        output_file='printed-cv/'+'structured_data.json'
     )
 
     format_task = Task(
@@ -78,7 +78,7 @@ def create_tasks(user_data, job_description, researcher, formatter, reviewer, su
         5. Certifications""",
         agent=formatter,
         expected_output="Well-formatted CV in markdown with consistent styling",
-        output_file='formatted_cv.md'
+        output_file='printed-cv/'+'formatted_cv.md'
     )
 
     review_task = Task(
@@ -89,7 +89,7 @@ def create_tasks(user_data, job_description, researcher, formatter, reviewer, su
         - Confirm professional tone""",
         agent=reviewer,
         expected_output="Polished CV meeting all professional guidelines",
-        output_file='reviewed_cv.md'
+        output_file='printed-cv/'+'reviewed_cv.md'
     )
 
     evaluation_task = Task(
@@ -109,7 +109,7 @@ Use the following markdown template for output:
 Provide concise, clear feedback inline.""",
         agent=suitability_checker,
         expected_output="Markdown with scores and detailed feedback",
-        output_file='evaluation.md'
+        output_file='printed-cv/'+'evaluation.md'
     )
 
     return research_task, format_task, review_task, evaluation_task
@@ -135,13 +135,13 @@ def generate_cv_and_evaluation(user_data, job_description):
     cv_md = ""
     eval_md = ""
     try:
-        with open('formatted_cv.md', 'r', encoding='utf-8') as f:
+        with open('printed-cv/'+'formatted_cv.md', 'r', encoding='utf-8') as f:
             cv_md = f.read()
     except FileNotFoundError:
         cv_md = None
 
     try:
-        with open('evaluation.md', 'r', encoding='utf-8') as f:
+        with open('printed-cv/'+'evaluation.md', 'r', encoding='utf-8') as f:
             eval_md = f.read()
     except FileNotFoundError:
         eval_md = None
