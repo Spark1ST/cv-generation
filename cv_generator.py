@@ -8,7 +8,7 @@ import agentops
 import streamlit as st
 
 # Load environment variables
-env_path = os.path.join(os.path.dirname(__file__), 'config', 'key.env')
+env_path = os.path.join(os.path.dirname(__file__)+'printed-cv', 'config', 'key.env')
 load_dotenv(dotenv_path=env_path)
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")

@@ -26,11 +26,41 @@ def main():
         st.session_state.eval_md = None
 
     # — User inputs —
+    # Minimum character requirements (adjust as needed)
+    MIN_LENGTHS = {
+        "name": 2,
+        "experience": 100,
+        "education": 30,
+        "skills": 3,
+        "job_desc": 100,
+    }
+
     name       = st.text_input("Full Name")
     experience = st.text_area("Professional Experience")
     education  = st.text_area("Education History")
     skills     = st.text_input("Skills / Certificates (comma-separated)")
     job_desc   = st.text_area("Target Job Description")
+
+    # Validate minimum character lengths
+    lengths = {
+        "name": len(name.strip()),
+        "experience": len(experience.strip()),
+        "education": len(education.strip()),
+        "skills": len(skills.strip()),
+        "job_desc": len(job_desc.strip()),
+    }
+
+    invalid_fields = [
+        (k, lengths[k], MIN_LENGTHS[k])
+        for k in MIN_LENGTHS
+        if lengths[k] < MIN_LENGTHS[k]
+    ]
+
+    if invalid_fields:
+        for field, have, need in invalid_fields:
+            st.warning(f"'{field}' is too short: {have} chars (min {need})")
+
+    inputs_valid = len(invalid_fields) == 0
 
     # — on_click callback to kick off generation —
     def start_generation():
@@ -41,7 +71,7 @@ def main():
     st.button(
         "Generate CV",
         on_click=start_generation,
-        disabled=st.session_state.running
+        disabled=st.session_state.running or not inputs_valid
     )
 
     # — If running flag is set, immediately do the work with spinner —
