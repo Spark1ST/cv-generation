@@ -1,0 +1,52 @@
+tasks:
+  - name: Research Task
+    description: |
+      Analyze and structure this raw data:
+      {{user_data}}
+      Create comprehensive CV sections with proper categorization
+    agent: CV Data Specialist
+    expected_output: Structured JSON with categorized professional information
+    output_file: structured_data.json
+
+  - name: Formatting Task
+    description: |
+      Convert structured data into ATS-friendly markdown format.
+      Use professional templates and ensure proper section ordering:
+      1. Summary
+      2. Experience
+      3. Education
+      4. Skills
+      5. Certifications
+    agent: Document Formatting Expert
+    expected_output: Well-formatted CV in markdown with consistent styling
+    output_file: formatted_cv.md
+
+  - name: Review Task
+    description: |
+      Verify CV quality:
+      - Check for grammatical errors
+      - Ensure consistent tense usage
+      - Validate chronological order
+      - Confirm professional tone
+    agent: Quality Assurance Editor
+    expected_output: Polished CV meeting all professional guidelines
+    output_file: reviewed_cv.md
+
+  - name: Evaluation Task
+    description: |
+      Evaluate the generated CV against the job description:
+      {{job_description}}
+
+      Use the following markdown template for output:
+
+      ## Career Match Evaluation
+      - **Overall Score**: <score>/100
+      - **Experience Relevance**: <score>/20 – feedback
+      - **Skill Match**: <score>/20 – feedback
+      - **Education Suitability**: <score>/20 – feedback
+      - **Formatting Quality**: <score>/20 – feedback
+      - **Professional Tone**: <score>/20 – feedback
+
+    agent: Career Match Analyst
+    expected_output: Markdown with scores and detailed feedback
+    output_file: evaluation.md

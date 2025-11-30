@@ -1,0 +1,417 @@
+╭─────────────────────────────────────────────── Crew Execution Started ───────────────────────────────────────────────╮
+│                                                                                                                      │
+│  Crew Execution Started                                                                                              │
+│  Name: crew                                                                                                          │
+│  ID: 9ac0e37b-87c9-43f7-b8dc-d1467f9329a0                                                                            │
+│                                                                                                                      │
+│                                                                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+🚀 Crew: crew
+└── 📋 Task: d45b3963-a710-4ea1-99b1-874c07c6df16
+       Status: Executing Task...
+
+🚀 Crew: crew
+└── 📋 Task: d45b3963-a710-4ea1-99b1-874c07c6df16
+       Status: Executing Task...
+    └── 🤖 Agent: CV Data Specialist
+            Status: In Progress
+
+# Agent: CV Data Specialist
+## Task: Analyze and structure this raw data:
+        {"name": "Mohammed Hamad", "experience": "5 months trainee at sprints", "education": "FCIS ainshams university ", "skills": ["ai", "deep learning"], "job_description": "AI Engineer"}
+        Create comprehensive CV sections with proper categorization
+🤖 Agent: CV Data Specialist
+    Status: In Progress
+└── 🧠 Thinking...
+
+🤖 Agent: CV Data Specialist
+    Status: In Progress
+
+
+
+# Agent: CV Data Specialist
+## Final Answer:
+```json
+{
+  "personal_information": {
+    "name": "Mohammed Hamad"
+  },
+  "experience": [
+    {
+      "title": "Trainee",
+      "company": "Sprints",
+      "duration": "5 months",
+      "description": ""
+    }
+  ],
+  "education": [
+    {
+      "degree": null,
+      "university": "FCIS, Ain Shams University",
+      "graduation_date": null
+    }
+  ],
+  "skills": [
+    "AI",
+    "Deep Learning"
+  ],
+  "job_description": "AI Engineer"
+}
+```
+
+
+🚀 Crew: crew
+└── 📋 Task: d45b3963-a710-4ea1-99b1-874c07c6df16
+       Status: Executing Task...
+    └── 🤖 Agent: CV Data Specialist
+            Status: ✅ Completed
+
+🚀 Crew: crew
+└── 📋 Task: d45b3963-a710-4ea1-99b1-874c07c6df16
+       Assigned to: CV Data Specialist
+       Status: ✅ Completed
+    └── 🤖 Agent: CV Data Specialist
+            Status: ✅ Completed
+╭────────────────────────────────────────────────── Task Completion ───────────────────────────────────────────────────╮
+│                                                                                                                      │
+│  Task Completed                                                                                                      │
+│  Name: d45b3963-a710-4ea1-99b1-874c07c6df16                                                                          │
+│  Agent: CV Data Specialist                                                                                           │
+│                                                                                                                      │
+│                                                                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+🚀 Crew: crew
+├── 📋 Task: d45b3963-a710-4ea1-99b1-874c07c6df16
+│      Assigned to: CV Data Specialist
+│      Status: ✅ Completed
+│   └── 🤖 Agent: CV Data Specialist
+│           Status: ✅ Completed
+└── 📋 Task: 81df0d65-b32e-4f0b-817b-2abb70ddf05a
+       Status: Executing Task...
+
+🚀 Crew: crew
+├── 📋 Task: d45b3963-a710-4ea1-99b1-874c07c6df16
+│      Assigned to: CV Data Specialist
+│      Status: ✅ Completed
+│   └── 🤖 Agent: CV Data Specialist
+│           Status: ✅ Completed
+└── 📋 Task: 81df0d65-b32e-4f0b-817b-2abb70ddf05a
+       Status: Executing Task...
+    └── 🤖 Agent: Document Formatting Expert
+            Status: In Progress
+
+# Agent: Document Formatting Expert
+## Task: Convert structured data into ATS-friendly markdown format.
+        Use professional templates and ensure proper section ordering:
+        1. Summary
+        2. Experience
+        3. Education
+        4. Skills
+        5. Certifications
+
+
+# Agent: Document Formatting Expert
+## Final Answer:
+```markdown
+# Mohammed Hamad
+
+**Summary**
+
+Highly motivated and results-oriented individual seeking an AI Engineer position.  Eager to leverage skills in AI and Deep Learning to contribute to a dynamic team.  Recent experience as a trainee at Sprints provided valuable foundational experience.
+
+
+**Experience**
+
+* **Trainee** | Sprints | 5 months
+
+**Education**
+
+* FCIS, Ain Shams University
+
+
+**Skills**
+
+* AI
+* Deep Learning
+
+
+**Certifications**
+
+*(List any certifications here)*
+```
+
+
+🚀 Crew: crew
+├── 📋 Task: d45b3963-a710-4ea1-99b1-874c07c6df16
+│      Assigned to: CV Data Specialist
+│      Status: ✅ Completed
+│   └── 🤖 Agent: CV Data Specialist
+│           Status: ✅ Completed
+└── 📋 Task: 81df0d65-b32e-4f0b-817b-2abb70ddf05a
+       Status: Executing Task...
+    └── 🤖 Agent: Document Formatting Expert
+            Status: ✅ Completed
+
+🚀 Crew: crew
+├── 📋 Task: d45b3963-a710-4ea1-99b1-874c07c6df16
+│      Assigned to: CV Data Specialist
+│      Status: ✅ Completed
+│   └── 🤖 Agent: CV Data Specialist
+│           Status: ✅ Completed
+└── 📋 Task: 81df0d65-b32e-4f0b-817b-2abb70ddf05a
+       Assigned to: Document Formatting Expert
+       Status: ✅ Completed
+    └── 🤖 Agent: Document Formatting Expert
+            Status: ✅ Completed
+╭────────────────────────────────────────────────── Task Completion ───────────────────────────────────────────────────╮
+│                                                                                                                      │
+│  Task Completed                                                                                                      │
+│  Name: 81df0d65-b32e-4f0b-817b-2abb70ddf05a                                                                          │
+│  Agent: Document Formatting Expert                                                                                   │
+│                                                                                                                      │
+│                                                                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+🚀 Crew: crew
+├── 📋 Task: d45b3963-a710-4ea1-99b1-874c07c6df16
+│      Assigned to: CV Data Specialist
+│      Status: ✅ Completed
+│   └── 🤖 Agent: CV Data Specialist
+│           Status: ✅ Completed
+├── 📋 Task: 81df0d65-b32e-4f0b-817b-2abb70ddf05a
+│      Assigned to: Document Formatting Expert
+│      Status: ✅ Completed
+│   └── 🤖 Agent: Document Formatting Expert
+│           Status: ✅ Completed
+└── 📋 Task: 891578c8-c856-40bb-b8e6-eb19ae002f56
+       Status: Executing Task...
+
+🚀 Crew: crew
+├── 📋 Task: d45b3963-a710-4ea1-99b1-874c07c6df16
+│      Assigned to: CV Data Specialist
+│      Status: ✅ Completed
+│   └── 🤖 Agent: CV Data Specialist
+│           Status: ✅ Completed
+├── 📋 Task: 81df0d65-b32e-4f0b-817b-2abb70ddf05a
+│      Assigned to: Document Formatting Expert
+│      Status: ✅ Completed
+│   └── 🤖 Agent: Document Formatting Expert
+│           Status: ✅ Completed
+└── 📋 Task: 891578c8-c856-40bb-b8e6-eb19ae002f56
+       Status: Executing Task...
+    └── 🤖 Agent: Quality Assurance Editor
+            Status: In Progress
+
+# Agent: Quality Assurance Editor
+## Task: Verify CV quality:
+        - Check for grammatical errors
+        - Ensure consistent tense usage
+        - Validate chronological order
+        - Confirm professional tone
+
+
+# Agent: Quality Assurance Editor
+## Final Answer:
+```markdown
+# Mohammed Hamad
+
+**Summary**
+
+Highly motivated and results-oriented individual seeking an AI Engineer position. Eager to leverage skills in AI and Deep Learning to contribute to a dynamic team. Recent experience as a trainee at Sprints provided valuable foundational experience.
+
+
+**Experience**
+
+* **Trainee** | Sprints | 5 months | *[Add a brief description of responsibilities and accomplishments.  Quantify achievements whenever possible.  For example: "Assisted senior engineers in the development of X, resulting in a Y% improvement."]*
+
+
+**Education**
+
+* **[Degree Name]** | FCIS, Ain Shams University | *[Graduation Date or Expected Graduation Date]*
+
+
+**Skills**
+
+* AI
+* Deep Learning
+* *[Consider adding more specific skills relevant to AI Engineering, e.g., Python, TensorFlow, PyTorch, specific AI algorithms, etc.]*
+
+
+**Certifications**
+
+*(List any certifications here)*
+
+
+```
+
+
+🚀 Crew: crew
+├── 📋 Task: d45b3963-a710-4ea1-99b1-874c07c6df16
+│      Assigned to: CV Data Specialist
+│      Status: ✅ Completed
+│   └── 🤖 Agent: CV Data Specialist
+│           Status: ✅ Completed
+├── 📋 Task: 81df0d65-b32e-4f0b-817b-2abb70ddf05a
+│      Assigned to: Document Formatting Expert
+│      Status: ✅ Completed
+│   └── 🤖 Agent: Document Formatting Expert
+│           Status: ✅ Completed
+└── 📋 Task: 891578c8-c856-40bb-b8e6-eb19ae002f56
+       Status: Executing Task...
+    └── 🤖 Agent: Quality Assurance Editor
+            Status: ✅ Completed
+
+🚀 Crew: crew
+├── 📋 Task: d45b3963-a710-4ea1-99b1-874c07c6df16
+│      Assigned to: CV Data Specialist
+│      Status: ✅ Completed
+│   └── 🤖 Agent: CV Data Specialist
+│           Status: ✅ Completed
+├── 📋 Task: 81df0d65-b32e-4f0b-817b-2abb70ddf05a
+│      Assigned to: Document Formatting Expert
+│      Status: ✅ Completed
+│   └── 🤖 Agent: Document Formatting Expert
+│           Status: ✅ Completed
+└── 📋 Task: 891578c8-c856-40bb-b8e6-eb19ae002f56
+       Assigned to: Quality Assurance Editor
+       Status: ✅ Completed
+    └── 🤖 Agent: Quality Assurance Editor
+            Status: ✅ Completed
+╭────────────────────────────────────────────────── Task Completion ───────────────────────────────────────────────────╮
+│                                                                                                                      │
+│  Task Completed                                                                                                      │
+│  Name: 891578c8-c856-40bb-b8e6-eb19ae002f56                                                                          │
+│  Agent: Quality Assurance Editor                                                                                     │
+│                                                                                                                      │
+│                                                                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+🚀 Crew: crew
+├── 📋 Task: d45b3963-a710-4ea1-99b1-874c07c6df16
+│      Assigned to: CV Data Specialist
+│      Status: ✅ Completed
+│   └── 🤖 Agent: CV Data Specialist
+│           Status: ✅ Completed
+├── 📋 Task: 81df0d65-b32e-4f0b-817b-2abb70ddf05a
+│      Assigned to: Document Formatting Expert
+│      Status: ✅ Completed
+│   └── 🤖 Agent: Document Formatting Expert
+│           Status: ✅ Completed
+├── 📋 Task: 891578c8-c856-40bb-b8e6-eb19ae002f56
+│      Assigned to: Quality Assurance Editor
+│      Status: ✅ Completed
+│   └── 🤖 Agent: Quality Assurance Editor
+│           Status: ✅ Completed
+└── 📋 Task: 8beacae0-1083-47ce-8971-626bb7a4a4c5
+       Status: Executing Task...
+
+🚀 Crew: crew
+├── 📋 Task: d45b3963-a710-4ea1-99b1-874c07c6df16
+│      Assigned to: CV Data Specialist
+│      Status: ✅ Completed
+│   └── 🤖 Agent: CV Data Specialist
+│           Status: ✅ Completed
+├── 📋 Task: 81df0d65-b32e-4f0b-817b-2abb70ddf05a
+│      Assigned to: Document Formatting Expert
+│      Status: ✅ Completed
+│   └── 🤖 Agent: Document Formatting Expert
+│           Status: ✅ Completed
+├── 📋 Task: 891578c8-c856-40bb-b8e6-eb19ae002f56
+│      Assigned to: Quality Assurance Editor
+│      Status: ✅ Completed
+│   └── 🤖 Agent: Quality Assurance Editor
+│           Status: ✅ Completed
+└── 📋 Task: 8beacae0-1083-47ce-8971-626bb7a4a4c5
+       Status: Executing Task...
+    └── 🤖 Agent: Career Match Analyst
+            Status: In Progress
+
+# Agent: Career Match Analyst
+## Task: Evaluate the generated CV against the job description:
+AI Engineer
+
+Use the following markdown template for output:
+
+## Career Match Evaluation
+- **Overall Score**: <score>/100
+- **Experience Relevance**: <score>/20 – feedback
+- **Skill Match**: <score>/20 – feedback
+- **Education Suitability**: <score>/20 – feedback
+- **Formatting Quality**: <score>/20 – feedback
+- **Professional Tone**: <score>/20 – feedback
+
+Provide concise, clear feedback inline.
+
+
+# Agent: Career Match Analyst
+## Final Answer:
+## Career Match Evaluation
+- **Overall Score**: 45/100
+- **Experience Relevance**: 5/20 – The "Trainee" experience lacks detail and quantifiable achievements.  The short duration (5 months) also raises concerns about the depth of experience.  Adding details about projects, responsibilities, and accomplishments is crucial.
+- **Skill Match**: 10/20 – Listing "AI" and "Deep Learning" is a good start, but it's too general.  The CV needs to specify relevant programming languages (Python, R, etc.), libraries (TensorFlow, PyTorch, scikit-learn), and specific AI/ML algorithms or techniques (e.g., CNNs, RNNs, regression models).  The lack of concrete skill demonstration significantly lowers the score.
+- **Education Suitability**: 5/20 –  The education section is incomplete.  The degree name and graduation date are missing.  This information is essential for evaluating the candidate's educational background and its relevance to the AI Engineer role.
+- **Formatting Quality**: 10/20 – The formatting is basic but acceptable.  However, the lack of detail in the experience and education sections impacts the overall quality.  Adding more information and using bullet points effectively would improve the presentation.
+- **Professional Tone**: 15/20 – The professional tone is adequate.  The summary is concise and appropriately highlights the candidate's motivation and aspirations.  However, the lack of substantial content in other sections slightly detracts from the overall professional impression.
+
+
+🚀 Crew: crew
+├── 📋 Task: d45b3963-a710-4ea1-99b1-874c07c6df16
+│      Assigned to: CV Data Specialist
+│      Status: ✅ Completed
+│   └── 🤖 Agent: CV Data Specialist
+│           Status: ✅ Completed
+├── 📋 Task: 81df0d65-b32e-4f0b-817b-2abb70ddf05a
+│      Assigned to: Document Formatting Expert
+│      Status: ✅ Completed
+│   └── 🤖 Agent: Document Formatting Expert
+│           Status: ✅ Completed
+├── 📋 Task: 891578c8-c856-40bb-b8e6-eb19ae002f56
+│      Assigned to: Quality Assurance Editor
+│      Status: ✅ Completed
+│   └── 🤖 Agent: Quality Assurance Editor
+│           Status: ✅ Completed
+└── 📋 Task: 8beacae0-1083-47ce-8971-626bb7a4a4c5
+       Status: Executing Task...
+    └── 🤖 Agent: Career Match Analyst
+            Status: ✅ Completed
+
+🚀 Crew: crew
+├── 📋 Task: d45b3963-a710-4ea1-99b1-874c07c6df16
+│      Assigned to: CV Data Specialist
+│      Status: ✅ Completed
+│   └── 🤖 Agent: CV Data Specialist
+│           Status: ✅ Completed
+├── 📋 Task: 81df0d65-b32e-4f0b-817b-2abb70ddf05a
+│      Assigned to: Document Formatting Expert
+│      Status: ✅ Completed
+│   └── 🤖 Agent: Document Formatting Expert
+│           Status: ✅ Completed
+├── 📋 Task: 891578c8-c856-40bb-b8e6-eb19ae002f56
+│      Assigned to: Quality Assurance Editor
+│      Status: ✅ Completed
+│   └── 🤖 Agent: Quality Assurance Editor
+│           Status: ✅ Completed
+└── 📋 Task: 8beacae0-1083-47ce-8971-626bb7a4a4c5
+       Assigned to: Career Match Analyst
+       Status: ✅ Completed
+    └── 🤖 Agent: Career Match Analyst
+            Status: ✅ Completed
+╭────────────────────────────────────────────────── Task Completion ───────────────────────────────────────────────────╮
+│                                                                                                                      │
+│  Task Completed                                                                                                      │
+│  Name: 8beacae0-1083-47ce-8971-626bb7a4a4c5                                                                          │
+│  Agent: Career Match Analyst                                                                                         │
+│                                                                                                                      │
+│                                                                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+╭────────────────────────────────────────────────── Crew Completion ───────────────────────────────────────────────────╮
+│                                                                                                                      │
+│  Crew Execution Completed                                                                                            │
+│  Name: crew                                                                                                          │
+│  ID: 9ac0e37b-87c9-43f7-b8dc-d1467f9329a0                                                                            │
+│                                                                                                                      │
+│                                                                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯

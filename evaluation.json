@@ -1,0 +1,32 @@
+```json
+{
+  "total_score": 65,
+  "categories": [
+    {
+      "name": "Experience Relevance",
+      "score": 80,
+      "feedback": "The candidate has relevant experience as an AI Engineer, which is a strong positive. However, the provided CV lacks specifics.  Quantifiable achievements and detailed descriptions of responsibilities are crucial for a higher score.  Adding details on projects, technologies used, and impact would significantly improve this section. For example, mentioning specific deep learning models used, datasets handled, or business problems solved would be beneficial."
+    },
+    {
+      "name": "Skill Match",
+      "score": 50,
+      "feedback": "The candidate lists 'AI' and 'Deep Learning' as skills, which are relevant. However,  the list is too short.  A comprehensive list of skills is essential for an AI Engineer role. This should include programming languages (e.g., Python, R), specific libraries and frameworks (e.g., TensorFlow, PyTorch, scikit-learn), cloud platforms (e.g., AWS, GCP, Azure), database technologies, and specific AI/ML algorithms (e.g., CNNs, RNNs, transformers).  The more specific and detailed the skillset, the better the match."
+    },
+    {
+      "name": "Education Suitability",
+      "score": 70,
+      "feedback": "An FCIS degree is generally relevant to AI engineering, but more information is needed. Specifying the university name and the focus area within FCIS (e.g., data science, computer science with an AI specialization) would improve the score. Including a GPA or relevant coursework would further strengthen this section."
+    },
+    {
+      "name": "Formatting Quality",
+      "score": 75,
+      "feedback": "The formatting is generally acceptable but could be improved.  Using a consistent format throughout the CV, adding clear section headers, and using bullet points effectively would enhance readability. The provided examples show some improvement, suggesting the candidate is open to feedback and improvement."
+    },
+    {
+      "name": "Professional Tone",
+      "score": 70,
+      "feedback": "The professional tone is acceptable.  Using stronger action verbs and quantifiable achievements in the experience section will make it more impactful.  The summary is a good start, but could be made more specific and highlight key accomplishments rather than just stating general skills and motivations."
+    }
+  ]
+}
+```

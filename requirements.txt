@@ -1,0 +1,8 @@
+streamlit
+google-generativeai
+crewai
+python-dotenv
+PyYAML
+google-generativeai
+weasyprint
+markdown2
