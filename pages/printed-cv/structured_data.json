@@ -1,0 +1,28 @@
+```
+{
+  "contact": {
+    "name": "Mohammed"
+  },
+  "summary": {
+    "job_title": "AI Engineer, ML Engineer",
+    "experience": "Experienced trainee at sprints for 5 months"
+  },
+  "education": {
+    "university": "Ainshams University",
+    "field_of_study": "AI",
+    "degree": "FCIS"
+  },
+  "technical_skills": {
+    "programming_skills": [
+      "AI",
+      "Deep Learning",
+      "Machine Learning"
+    ]
+  },
+  "work_experience": {
+    "company": "Sprints",
+    "position": "Trainee",
+    "duration": "5 months"
+  }
+}
+```

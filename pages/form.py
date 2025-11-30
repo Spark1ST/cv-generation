@@ -29,10 +29,10 @@ def main():
     # Minimum character requirements (adjust as needed)
     MIN_LENGTHS = {
         "name": 2,
-        "experience": 100,
-        "education": 30,
+        "experience": 20,
+        "education": 15,
         "skills": 3,
-        "job_desc": 100,
+        "job_desc": 20,
     }
 
     name       = st.text_input("Full Name")
@@ -56,16 +56,19 @@ def main():
         if lengths[k] < MIN_LENGTHS[k]
     ]
 
-    if invalid_fields:
-        for field, have, need in invalid_fields:
-            st.warning(f"'{field}' is too short: {have} chars (min {need})")
-
-    inputs_valid = len(invalid_fields) == 0
+    inputs_valid= len(invalid_fields)
 
     # — on_click callback to kick off generation —
     def start_generation():
-        st.session_state.running = True
-        st.session_state.done = False
+  
+        if invalid_fields:
+            for field, have, need in invalid_fields:
+                st.warning(f"'{field}' is too short: {have} chars (min {need})")
+
+        inputs_valid = len(invalid_fields) == 0
+        if inputs_valid:
+            st.session_state.running = True
+            st.session_state.done = False
 
     # — Generate button, disabled while running —
     st.button(
