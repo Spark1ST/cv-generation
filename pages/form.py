@@ -32,7 +32,7 @@ def main():
         "experience": 20,
         "education": 15,
         "skills": 3,
-        "job_desc": 20,
+        "job_desc": 6,
     }
 
     name       = st.text_input("Full Name")
