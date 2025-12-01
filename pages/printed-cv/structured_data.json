@@ -1,28 +1,24 @@
-```
 {
   "contact": {
-    "name": "Mohammed"
+    "name": "Hamad"
   },
   "summary": {
-    "job_title": "AI Engineer, ML Engineer",
-    "experience": "Experienced trainee at sprints for 5 months"
+    "job_title": "A.I Engineer",
+    "job_description": "A.I engineer training models for innovative solutions"
   },
   "education": {
-    "university": "Ainshams University",
-    "field_of_study": "AI",
-    "degree": "FCIS"
+    "degree": "Graduate",
+    "university": "FCIS AinShams University"
   },
-  "technical_skills": {
-    "programming_skills": [
-      "AI",
-      "Deep Learning",
-      "Machine Learning"
-    ]
-  },
-  "work_experience": {
+  "experience": {
     "company": "Sprints",
     "position": "Trainee",
-    "duration": "5 months"
+    "duration": "6 months"
+  },
+  "skills": {
+    "technical": [
+      "AI",
+      "Deep Learning"
+    ]
   }
 }
-```
