@@ -1,146 +1,115 @@
 from crewai import Agent, Task, Crew, LLM
 import os
 import json
-import hashlib
+import uuid
 from dotenv import load_dotenv
+import agentops
 
-# -------------------------------
-# Environment Setup
-# -------------------------------
+# ---------------------------
+# Environment
+# ---------------------------
 BASE_DIR = os.path.dirname(__file__)
 ENV_PATH = os.path.join(BASE_DIR, "config", "key.env")
-OUTPUT_DIR = os.path.join(BASE_DIR, "printed-cv")
+OUTPUT_ROOT = os.path.join(BASE_DIR, "printed-cv")
 
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+os.makedirs(OUTPUT_ROOT, exist_ok=True)
 load_dotenv(dotenv_path=ENV_PATH)
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+AGENTOPS_API_KEY = os.getenv("AGENTOPS_API_KEY")
+agentops.init(api_key=AGENTOPS_API_KEY)
 
-# -------------------------------
-# LLM (Groq)
-# -------------------------------
+# ---------------------------
+# LLM
+# ---------------------------
 llm = LLM(
     api_key=GROQ_API_KEY,
     model="groq/llama-3.3-70b-versatile",
     temperature=0.2
 )
 
-# -------------------------------
-# Utilities
-# -------------------------------
-def _hash_payload(user_data: dict, job_description: str) -> str:
-    raw = json.dumps(
-        {"user_data": user_data, "job_description": job_description},
-        sort_keys=True
-    )
-    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
-
-
-def _read_file(path: str):
-    if not os.path.exists(path):
-        return None
-    with open(path, "r", encoding="utf-8") as f:
-        content = f.read().strip()
-        return content if content else None
-
-
-# -------------------------------
+# ---------------------------
 # Agents
-# -------------------------------
+# ---------------------------
 def create_agents():
     return (
         Agent(
             role="CV Data Specialist",
-            goal="Ensure CV data is structured and consistent",
-            backstory="Expert in CV data normalization",
-            llm=llm
+            goal="Extract and structure professional information",
+            backstory="Expert in analyzing and organizing career data",
+            llm=llm,
+            verbose=False
         ),
         Agent(
-            role="CV Formatter",
-            goal="Generate a grounded ATS-friendly CV",
-            backstory="Professional resume writer",
-            llm=llm
+            role="Document Formatting Expert",
+            goal="Create ATS-friendly CVs",
+            backstory="Specialist in professional CV formatting",
+            llm=llm,
+            verbose=False
         ),
         Agent(
-            role="CV Reviewer",
-            goal="Polish CV without changing facts",
-            backstory="HR editor",
-            llm=llm
+            role="Quality Assurance Editor",
+            goal="Ensure CV meets professional standards",
+            backstory="HR editor with strong editorial skills",
+            llm=llm,
+            verbose=False
         ),
         Agent(
             role="Career Match Analyst",
-            goal="Evaluate CV against job description",
-            backstory="Senior recruiter",
-            llm=llm
+            goal="Evaluate CV against target role",
+            backstory="Senior talent acquisition specialist",
+            llm=llm,
+            verbose=False
         ),
     )
 
-
-# -------------------------------
-# Tasks (ONE VERSION ONLY)
-# -------------------------------
-def create_tasks(user_data, job_description, agents):
+# ---------------------------
+# Tasks
+# ---------------------------
+def create_tasks(user_data, job_description, agents, run_dir):
     researcher, formatter, reviewer, evaluator = agents
 
-    cv_path = os.path.join(OUTPUT_DIR, "reviewed_cv.md")
-    eval_path = os.path.join(OUTPUT_DIR, "evaluation.md")
+    structured_path = os.path.join(run_dir, "structured.json")
+    cv_path = os.path.join(run_dir, "cv.md")
+    eval_path = os.path.join(run_dir, "evaluation.md")
 
-    grounded_input = json.dumps(user_data, indent=2)
-# eno wlahy da goz2 mas2ol 3ala tzbet el cv be est3mal el ai 
-    research_task = Task(
-        description=f"""
-Normalize user CV data WITHOUT adding information.
-
-User data:
-{grounded_input}
+    return [
+        Task(
+            description=f"""
+Analyze and structure this raw data into clean JSON:
+{json.dumps(user_data, indent=2)}
 """,
-        agent=researcher,
-        expected_output="Normalized CV data"
-    )
-
-    format_task = Task(
-        description=f"""
-Generate a COMPLETE Markdown CV using ONLY the data below.
-DO NOT invent content.
-DO NOT leave sections empty if data exists.
-
-User data:
-{grounded_input}
-
-Rules:
-- Experience section must contain the experience text
-- Education section must contain the education text
-- Skills must be listed if provided
-- Use Markdown headings (#, ##)
+            agent=researcher,
+            expected_output="Structured professional data in JSON",
+            output_file=structured_path,
+        ),
+        Task(
+            description="""
+Convert structured data into ATS-friendly markdown CV.
+Use clear sections and concise bullet points.
 """,
-        agent=formatter,
-        expected_output="Complete grounded Markdown CV",
-        output_file=cv_path
-    )
-
-    review_task = Task(
-        description=f"""
-Review the CV for grammar and formatting ONLY.
-DO NOT rewrite or overwrite content.
-
-User data:
-{grounded_input}
+            agent=formatter,
+            expected_output="Professional CV in markdown",
+            output_file=cv_path,
+        ),
+        Task(
+            description="""
+Review and polish the CV:
+- Fix grammar
+- Ensure professional tone
+- Maintain consistency
 """,
-        agent=reviewer,
-        expected_output="Review notes only"
-    )
+            agent=reviewer,
+            expected_output="Final polished CV markdown",
+            output_file=cv_path,
+        ),
+        Task(
+            description=f"""
+Evaluate CV against job description:
 
-    evaluation_task = Task(
-        description=f"""
-Evaluate the CV against the job description.
-
-Job description:
 {job_description}
 
-User data:
-{grounded_input}
-
-Output ONLY markdown:
+Output ONLY the following markdown:
 
 ## Career Match Evaluation
 - **Overall Score**: <score>/100
@@ -150,39 +119,43 @@ Output ONLY markdown:
 - **Formatting Quality**: <score>/20 – feedback
 - **Professional Tone**: <score>/20 – feedback
 """,
-        agent=evaluator,
-        expected_output="Markdown evaluation",
-        output_file=eval_path
-    )
+            agent=evaluator,
+            expected_output="Evaluation markdown",
+            output_file=eval_path,
+        ),
+    ], cv_path, eval_path
 
-    return [research_task, format_task, review_task, evaluation_task], cv_path, eval_path
-
-
-
-
-# -------------------------------
+# ---------------------------
 # Public API
-# -------------------------------
+# ---------------------------
 def generate_cv_and_evaluation(user_data: dict, job_description: str):
-    run_id = _hash_payload(user_data, job_description)
+    """
+    Runs CrewAI once and returns (cv_markdown, evaluation_markdown).
+    Does NOT write to shared files.
+    """
 
-    cv_path = os.path.join(OUTPUT_DIR, "reviewed_cv.md")
-    eval_path = os.path.join(OUTPUT_DIR, "evaluation.md")
-
-    cached_cv = _read_file(cv_path)
-    cached_eval = _read_file(eval_path)
-
-    if cached_cv and cached_eval:
-        return cached_cv, cached_eval
+    run_id = str(uuid.uuid4())
+    run_dir = os.path.join(OUTPUT_ROOT, run_id)
+    os.makedirs(run_dir, exist_ok=True)
 
     agents = create_agents()
-    tasks, _, _ = create_tasks(user_data, job_description, agents)
+    tasks, cv_path, eval_path = create_tasks(
+        user_data, job_description, agents, run_dir
+    )
 
-    Crew(
+    crew = Crew(
         agents=list(agents),
         tasks=tasks,
         sequential=True,
-        verbose=False
-    ).kickoff()
+        verbose=False,
+    )
 
-    return _read_file(cv_path), _read_file(eval_path)
+    crew.kickoff()
+
+    def read(path):
+        if not os.path.exists(path):
+            return None
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read().strip() or None
+
+    return read(cv_path), read(eval_path)

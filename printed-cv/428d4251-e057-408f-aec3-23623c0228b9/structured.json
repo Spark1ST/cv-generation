@@ -1,0 +1,17 @@
+{
+  "name": "Mohammed Mahmoud Hamad",
+  "experience": {
+    "duration": "6 months",
+    "position": "Trainee",
+    "projects": ["Sprints"]
+  },
+  "education": {
+    "university": "Ain Shams University",
+    "faculty": "FCIS"
+  },
+  "skills": [
+    "AI",
+    "Deep Learning"
+  ],
+  "job_description": null
+}

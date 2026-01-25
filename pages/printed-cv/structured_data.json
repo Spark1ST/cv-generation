@@ -1,0 +1,38 @@
+```
+{
+  "Contact Information": {
+    "name": ""
+  },
+  "Summary": {
+    "job_description": ""
+  },
+  "Education": {
+    "education": ""
+  },
+  "Experience": {
+    "experience": ""
+  },
+  "Skills": {
+    "skills": [
+      ""
+    ]
+  },
+  "Sections": {
+    "Work Experience": {},
+    "Education Background": {},
+    "Technical Skills": {},
+    "Achievements": {}
+  },
+  "Work Experience": {
+    "experience": ""
+  },
+  "Education Background": {
+    "education": ""
+  },
+  "Technical Skills": {
+    "skills": [
+      ""
+    ]
+  }
+}
+```
