@@ -6,3 +6,4 @@ PyYAML
 google-generativeai
 weasyprint
 markdown2
+reportlab-4.4.7

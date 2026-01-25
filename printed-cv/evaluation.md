@@ -1,7 +1,7 @@
 ## Career Match Evaluation
-- **Overall Score**: 45/100
-- **Experience Relevance**: 5/20 – The candidate lacks formal work experience.  The CV mentions only foundational knowledge in AI and Deep Learning, which is insufficient for a competitive AI RNG role.  Adding relevant projects or internships is crucial to demonstrate practical skills.
-- **Skill Match**: 10/20 – The listed skills (AI and Deep Learning) are relevant to the target job, but lack specificity.  Mentioning proficiency in specific tools and libraries (TensorFlow, PyTorch, etc.) and algorithms related to RNG would significantly improve the score.  The CV needs to showcase a deeper understanding and practical application of these skills.
-- **Education Suitability**: 5/20 – The "FCIS" degree is insufficient information.  The institution and graduation date are missing, making it difficult to assess the educational background's relevance.  Further details about the curriculum and coursework related to AI/RNG are needed.
-- **Formatting Quality**: 10/20 – The formatting is acceptable but could be improved. Adding sections for projects and certifications is recommended.  Using bolding and bullet points effectively improves readability and highlights key information.  Quantifiable achievements are missing and will help boost the score.
-- **Professional Tone**: 15/20 – The professional tone is appropriate. However, the summary could be more impactful by quantifying achievements or highlighting specific skills relevant to AI RNG.
+- **Overall Score**: 0/100
+- **Experience Relevance**: 0/20 – The candidate has not listed any experience, which makes it difficult to assess their relevance to the job.
+- **Skill Match**: 0/20 – There are no skills listed, making it impossible to determine if the candidate's skills match the job requirements.
+- **Education Suitability**: 0/20 – The candidate's education has not been listed, so it cannot be evaluated for suitability.
+- **Formatting Quality**: 10/20 – The CV appears to be poorly formatted, with empty sections and a lack of detail.
+- **Professional Tone**: 0/20 – The CV does not convey a professional tone due to the absence of relevant information.
