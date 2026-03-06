@@ -1,0 +1,13 @@
+{
+  "name": "John Doe",
+  "experience": "10 years of experience in software development",
+  "education": "Bachelor's degree in Computer Science",
+  "skills": [
+    "Programming languages: Java, Python, C++",
+    "Development frameworks: Spring, Django",
+    "Databases: MySQL, MongoDB",
+    "Operating Systems: Windows, Linux",
+    "Cloud platforms: AWS, Azure"
+  ],
+  "job_description": "Highly motivated and experienced software developer with a strong background in designing, developing, and deploying scalable software applications. Proficient in a range of programming languages and development frameworks, with a proven track record of delivering high-quality solutions on time and on budget."
+}

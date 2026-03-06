@@ -1,0 +1,24 @@
+{
+  "name": "Hamad",
+  "experience": [
+    {
+      "jobTitle": "Data Scientist",
+      "company": "Sprints Data Camp",
+      "duration": "6 months"
+    }
+  ],
+  "education": [
+    {
+      "degree": "FCIS",
+      "university": "ASU University"
+    }
+  ],
+  "skills": [
+    {
+      "name": "AI"
+    },
+    {
+      "name": "Deep Learning"
+    }
+  ]
+}

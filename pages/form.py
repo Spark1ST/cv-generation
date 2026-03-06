@@ -1,138 +1,127 @@
 import streamlit as st
 import sys
 import os
+import base64
 from io import BytesIO
+
+import markdown
+import streamlit.components.v1 as components
 
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer,
-    ListFlowable, ListItem, HRFlowable
+    ListFlowable, ListItem
 )
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.styles import getSampleStyleSheet
 
-# Add root directory
+# -------------------------------------------------
+# Import CV Engine (CrewAI backend)
+# -------------------------------------------------
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from cv_generator import generate_cv_and_evaluation
 
-
 # -------------------------------------------------
-# Helpers
+# Utilities
 # -------------------------------------------------
 def safe_filename(name: str) -> str:
     name = "".join(c for c in name if c.isalnum() or c in (" ", "_", "-")).strip()
     return "_".join(name.split()) + "_CV.pdf" if name else "CV.pdf"
 
 
-def build_cv_data():
-    return {
-        "name": st.session_state.name,
-        "title": st.session_state.title,
-        "location": st.session_state.location,
-        "phone": st.session_state.phone,
-        "email": st.session_state.email,
-        "linkedin": st.session_state.linkedin,
-        "education": st.session_state.education,
-        "experience": st.session_state.experience,
-        "projects": st.session_state.projects,
-        "skills": st.session_state.skills,
-    }
-
-
 # -------------------------------------------------
-# HTML VIEW (NEW TAB)
+# HTML VIEW (MARKDOWN → HTML → NEW TAB)
 # -------------------------------------------------
-def open_html_new_tab(cv):
-    html = f"""
-<!DOCTYPE html>
+def open_cv_markdown_new_tab(cv_md: str, name: str):
+    body_html = markdown.markdown(cv_md, extensions=["extra", "sane_lists"])
+
+    html_page = f"""
+<!doctype html>
 <html>
 <head>
-    <title>{cv['name']} CV</title>
-    <style>
-        body {{ font-family: Arial; margin: 40px; line-height: 1.6; }}
-        h1 {{ text-align: center; }}
-        h3 {{ border-bottom: 1px solid #333; }}
-        pre {{ white-space: pre-wrap; }}
-    </style>
+<meta charset="utf-8">
+<title>{name or "CV"} – CV</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+  background: #f5f6f8;
+  padding: 24px;
+}}
+.cv {{
+  max-width: 900px;
+  margin: auto;
+  background: #fff;
+  padding: 36px;
+  border-radius: 10px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+}}
+h1 {{ font-size: 26px; }}
+h2 {{
+  font-size: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 4px;
+  margin-top: 22px;
+}}
+p, li {{
+  font-size: 14px;
+  line-height: 1.6;
+}}
+</style>
 </head>
 <body>
-    <h1>{cv['name']}</h1>
-    <p style="text-align:center;">
-        {cv['title']}<br>
-        {cv['location']} | {cv['phone']} | {cv['email']} | {cv['linkedin']}
-    </p>
-    <hr>
-    <h3>Education</h3><pre>{cv['education']}</pre>
-    <h3>Experience</h3><pre>{cv['experience']}</pre>
-    {f"<h3>Projects</h3><pre>{cv['projects']}</pre>" if cv['projects'].strip() else ""}
-    <h3>Skills</h3><pre>{cv['skills']}</pre>
+<div class="cv">
+{body_html}
+</div>
 </body>
 </html>
 """
-    st.components.v1.html(
+
+    b64 = base64.b64encode(html_page.encode("utf-8")).decode("utf-8")
+
+    components.html(
         f"""
+        <button id="openCv">View CV (HTML – New Tab)</button>
         <script>
-            const w = window.open("", "_blank");
-            w.document.write(`{html.replace("`", "\\`")}`);
-            w.document.close();
+            const html = atob("{b64}");
+            const blob = new Blob([html], {{ type: "text/html" }});
+            const url = URL.createObjectURL(blob);
+            document.getElementById("openCv").onclick = () => window.open(url, "_blank");
         </script>
         """,
-        height=0
+        height=60
     )
 
 
 # -------------------------------------------------
-# PDF GENERATOR (RAW BYTES ONLY)
+# PDF GENERATOR (FROM MARKDOWN)
 # -------------------------------------------------
-def generate_cv_pdf_bytes(cv) -> bytes:
+def generate_pdf_from_markdown(cv_md: str) -> bytes:
     buffer = BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=A4)
-
     styles = getSampleStyleSheet()
-    styles.add(ParagraphStyle(
-        name="Name",
-        fontSize=18,
-        alignment=TA_CENTER,
-        fontName="Helvetica-Bold"
-    ))
-    styles.add(ParagraphStyle(
-        name="Section",
-        fontSize=11,
-        fontName="Helvetica-Bold"
-    ))
-    styles.add(ParagraphStyle(
-        name="Body",
-        fontSize=10
-    ))
+    story = []
 
-    story = [
-        Paragraph(cv["name"], styles["Name"]),
-        Paragraph(cv["title"], styles["Body"]),
-        Paragraph(
-            f'{cv["location"]} | {cv["phone"]} | {cv["email"]} | {cv["linkedin"]}',
-            styles["Body"]
-        ),
-        HRFlowable(width="100%", thickness=1),
-        Spacer(1, 10),
-    ]
+    for line in cv_md.split("\n"):
+        line = line.strip()
 
-    def section(title, content):
-        if not content.strip():
-            return
-        story.append(Paragraph(title.upper(), styles["Section"]))
-        for line in content.split("\n"):
-            if line.startswith("-"):
-                story.append(ListFlowable(
-                    [ListItem(Paragraph(line[1:], styles["Body"]))],
+        if not line:
+            story.append(Spacer(1, 8))
+            continue
+
+        if line.startswith("# "):
+            story.append(Paragraph(f"<b>{line[2:]}</b>", styles["Title"]))
+        elif line.startswith("## "):
+            story.append(Spacer(1, 10))
+            story.append(Paragraph(f"<b>{line[3:]}</b>", styles["Heading2"]))
+        elif line.startswith("- "):
+            story.append(
+                ListFlowable(
+                    [ListItem(Paragraph(line[2:], styles["Normal"]))],
                     bulletType="bullet"
-                ))
-            else:
-                story.append(Paragraph(line, styles["Body"]))
-
-    section("Education", cv["education"])
-    section("Experience", cv["experience"])
-    section("Projects", cv["projects"])
-    section("Skills", cv["skills"])
+                )
+            )
+        else:
+            story.append(Paragraph(line, styles["Normal"]))
 
     doc.build(story)
     return buffer.getvalue()
@@ -142,74 +131,81 @@ def generate_cv_pdf_bytes(cv) -> bytes:
 # STREAMLIT APP
 # -------------------------------------------------
 def main():
+    st.set_page_config(page_title="AI CV Generator", layout="centered")
     st.title("AI CV Generator")
 
-    # --- State init ---
-    for k in [
-        "name", "title", "location", "phone", "email", "linkedin",
-        "education", "experience", "projects", "skills",
-        "cv_ready", "eval_md", "want_download"
-    ]:
-        st.session_state.setdefault(k, "")
-
-    if "want_download" not in st.session_state:
-        st.session_state.want_download = False
+    # --- Session State ---
+    for key in ["name", "experience", "education", "skills", "cv_md", "eval_md"]:
+        st.session_state.setdefault(key, "")
 
     # --- Inputs ---
     st.text_input("Full Name", key="name")
-    st.text_input("Professional Title", key="title")
-    st.text_input("Location", key="location")
-    st.text_input("Phone", key="phone")
-    st.text_input("Email", key="email")
-    st.text_input("LinkedIn", key="linkedin")
-    st.text_area("Education", key="education")
-    st.text_area("Experience", key="experience")
-    st.text_area("Projects (optional)", key="projects")
-    st.text_area("Skills", key="skills")
+    st.text_area("Experience", key="experience", height=150)
+    st.text_area("Education", key="education", height=120)
+    st.text_area("Skills (comma-separated)", key="skills")
 
     # --- Generate ---
     if st.button("Generate CV"):
-        cv = build_cv_data()
-        _, st.session_state.eval_md = generate_cv_and_evaluation(
-            {
-                "name": cv["name"],
-                "experience": cv["experience"],
-                "education": cv["education"],
-                "skills": cv["skills"].split(","),
-                "job_description": ""
-            },
-            ""
-        )
-        st.session_state.cv_ready = True
-        st.session_state.want_download = False
+        with st.spinner("Generating CV..."):
 
-    # --- Actions ---
-    if st.session_state.cv_ready:
-        cv = build_cv_data()
+            # 🔒 INPUT NORMALIZATION (CRITICAL FIX)
+            user_data = {}
+
+            if st.session_state.name.strip():
+                user_data["name"] = st.session_state.name.strip()
+
+            if st.session_state.experience.strip():
+                user_data["experience"] = st.session_state.experience.strip()
+
+            if st.session_state.education.strip():
+                user_data["education"] = st.session_state.education.strip()
+
+            skills = [
+                s.strip()
+                for s in st.session_state.skills.split(",")
+                if s.strip()
+            ]
+            if skills:
+                user_data["skills"] = skills
+
+            if not user_data:
+                st.error("Please enter at least one field to generate a CV.")
+                return
+
+            cv_md, eval_md = generate_cv_and_evaluation(user_data, "")
+
+            # 🛡 Guard against silent failure
+            if not cv_md:
+                st.error("CV generation failed. Please try again.")
+                return
+
+            st.session_state.cv_md = cv_md
+            st.session_state.eval_md = eval_md or ""
+
+    # --- Output ---
+    if st.session_state.cv_md:
+        st.subheader("CV Preview")
+        st.markdown(st.session_state.cv_md)
 
         col1, col2 = st.columns(2)
 
         with col1:
-            if st.button("👁 View CV (HTML – New Tab)"):
-                open_html_new_tab(cv)
+            open_cv_markdown_new_tab(
+                st.session_state.cv_md,
+                st.session_state.name
+            )
 
         with col2:
-            if st.button("⬇ Download CV (PDF)"):
-                st.session_state.want_download = True
-
-        # --- Actual download (only after explicit intent) ---
-        if st.session_state.want_download:
             st.download_button(
-                label="Click here to save PDF",
-                data=generate_cv_pdf_bytes(cv),
-                file_name=safe_filename(cv["name"]),
+                label="Download CV (PDF)",
+                data=generate_pdf_from_markdown(st.session_state.cv_md),
+                file_name=safe_filename(st.session_state.name),
                 mime="application/pdf"
             )
-            # reset to prevent rerun auto-download
-            st.session_state.want_download = False
 
-        st.subheader("Career Match Evaluation")
-        st.markdown(st.session_state.eval_md)
+        if st.session_state.eval_md:
+            st.subheader("Career Match Evaluation")
+            st.markdown(st.session_state.eval_md)
 
 
 if __name__ == "__main__":
